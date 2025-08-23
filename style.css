@@ -1,94 +1,42 @@
-/* Global styles */
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: #f5f7fa;
-  margin: 0;
-  padding: 0;
-  color: #333;
+/* SmartCalc Hub – minimal modern UI */
+:root{
+  --bg:#0f1221; --card:#171a2b; --muted:#9aa3b2; --text:#e9edf1; --acc:#4f7cff;
+  --danger:#e74c3c; --success:#2ecc71; --border:#262b40;
 }
-
-header {
-  background: #4a90e2;
-  color: #fff;
-  padding: 15px;
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
-}
-
-nav {
-  margin: 10px 0;
-  text-align: center;
-}
-nav a {
-  margin: 0 10px;
-  text-decoration: none;
-  color: #4a90e2;
-  font-weight: 500;
-}
-nav a:hover {
-  text-decoration: underline;
-}
-
-/* Section styling */
-section {
-  background: #fff;
-  max-width: 700px;
-  margin: 20px auto;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-}
-
-section h2 {
-  margin-top: 0;
-  color: #4a90e2;
-}
-
-/* Calculator buttons */
-.calc-buttons button {
-  width: 50px;
-  height: 50px;
-  margin: 5px;
-  font-size: 18px;
-  border: none;
-  border-radius: 8px;
-  background: #e3e9f0;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-.calc-buttons button:hover {
-  background: #d0d7e0;
-}
-
-/* Input fields */
-input[type="text"], input[type="number"], input[type="date"] {
-  padding: 10px;
-  width: calc(100% - 22px);
-  margin: 8px 0;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 16px;
-}
-
-/* Submit buttons */
-button[type="button"], input[type="submit"] {
-  padding: 10px 15px;
-  background: #4a90e2;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-}
-button[type="button"]:hover, input[type="submit"]:hover {
-  background: #357ab8;
-}
-
-footer {
-  text-align: center;
-  padding: 15px;
-  font-size: 14px;
-  background: #f0f0f0;
-  margin-top: 30px;
-}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial}
+.container{max-width:1000px;margin:0 auto;padding:16px}
+header.container{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:flex;align-items:center;gap:10px}
+.brand .logo{font-size:28px}
+h1{font-size:20px;margin:0}
+nav{display:flex;gap:8px;flex-wrap:wrap}
+nav a{color:var(--text);text-decoration:none;padding:8px 10px;border-radius:10px;border:1px solid transparent}
+nav a.active,nav a:hover{border-color:var(--border);background:#13162a}
+.grid{display:grid;grid-template-columns:1fr;gap:18px}
+@media(min-width:880px){.grid{grid-template-columns:1fr 1fr}}
+.tool h2{margin:10px 0 8px 0}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;box-shadow:0 6px 24px rgba(0,0,0,.25)}
+.card label{display:block;margin-bottom:10px;font-weight:600}
+.card input{width:100%;padding:12px 12px;border-radius:10px;border:1px solid var(--border);background:#0c0f20;color:var(--text);font-size:16px}
+.card button{margin-top:8px;padding:10px 14px;border:none;border-radius:10px;background:var(--acc);color:white;font-weight:600;cursor:pointer}
+.card button:hover{filter:brightness(1.1)}
+.row{display:grid;grid-template-columns:1fr 2fr;gap:10px;align-items:center;margin-bottom:8px}
+.row.actions{grid-template-columns:1fr 1fr}
+@media(max-width:520px){.row{grid-template-columns:1fr}}
+.out{margin-top:10px;padding:12px;background:#10142a;border:1px dashed var(--border);border-radius:10px;min-height:44px}
+.hint{color:var(--muted);font-size:14px}
+.hidden{display:none}
+/* Calculator specific */
+.calc{max-width:420px}
+.display{width:100%;height:56px;font-size:24px;text-align:right;margin-bottom:10px}
+.keys{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.keys button{padding:14px;border-radius:12px;background:#0f1430;border:1px solid var(--border);color:var(--text);font-size:16px}
+.keys button:hover{background:#12183a}
+.keys .wide{grid-column:span 2}
+.keys .danger{background:#3a0e12;border-color:#5f1a21}
+.keys .success{background:#0d4021;border-color:#176c37}
+.ad-slot{margin:10px auto}
+.footer{color:var(--muted);font-size:14px;text-align:center}
+.footer a{color:var(--muted)}
