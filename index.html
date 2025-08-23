@@ -1,52 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Advanced Calculator</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SmartCalc Hub – Free Online Calculators</title>
+  <meta name="description" content="Free online calculators: basic calculator, BMI, age, percentage/discount and EMI calculator. Simple, fast and mobile-friendly." />
+  <link rel="canonical" href="./" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧮</text></svg>">
+  <!-- TODO (AdSense): After approval, replace YOUR_PUB_ID and uncomment the script below
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUB_ID"
+          crossorigin="anonymous"></script>
+  -->
+  <meta property="og:title" content="SmartCalc Hub – Free Online Calculators" />
+  <meta property="og:description" content="Free online calculators: basic, BMI, age, percentage and EMI." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="./" />
+  <meta property="og:image" content="https://dummyimage.com/1200x630/222/fff&text=SmartCalc+Hub" />
+  <script>
+    // Simple SPA navigation (hash-based)
+    window.addEventListener('DOMContentLoaded', () => {
+      function showSection(id) {
+        document.querySelectorAll('section.tool').forEach(s => s.classList.add('hidden'));
+        const el = document.getElementById(id);
+        if (el) el.classList.remove('hidden');
+        // Update active tab
+        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+        const link = document.querySelector(`nav a[href="#${id}"]`);
+        if (link) link.classList.add('active');
+      }
+      const hash = location.hash.replace('#','') || 'calculator';
+      showSection(hash);
+      window.addEventListener('hashchange', () => showSection(location.hash.replace('#','')));
+    });
+  </script>
 </head>
 <body>
-  <div class="theme-toggle">
-    <button onclick="toggleTheme()">🌙 / ☀️</button>
+  <header class="container">
+    <div class="brand">
+      <span class="logo">🧮</span>
+      <h1>SmartCalc Hub</h1>
+    </div>
+    <nav>
+      <a href="#calculator" class="active">Calculator</a>
+      <a href="#bmi">BMI</a>
+      <a href="#age">Age</a>
+      <a href="#percent">% / Discount</a>
+      <a href="#emi">EMI</a>
+    </nav>
+  </header>
+
+  <!-- Ad slot (top) -->
+  <!-- After AdSense approval, create a responsive ad unit and paste it inside this <ins> -->
+  <div class="container ad-slot">
+    <!--
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-YOUR_PUB_ID"
+         data-ad-slot="TOP_RESPONSIVE_SLOT"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    -->
   </div>
 
-  <div class="calculator">
-    <input type="text" id="display" disabled>
-    <div class="buttons">
-      <button onclick="clearDisplay()" class="red">C</button>
-      <button onclick="backspace()">⌫</button>
-      <button onclick="appendValue('%')">%</button>
-      <button onclick="appendValue('/')">÷</button>
+  <main class="container grid">
+    <!-- Basic Calculator -->
+    <section id="calculator" class="tool">
+      <h2>Basic Calculator</h2>
+      <div class="card calc">
+        <input id="calc-display" class="display" type="text" inputmode="decimal" placeholder="0" />
+        <div class="keys">
+          <button data-act="clear" class="danger">C</button>
+          <button data-val="(">(</button>
+          <button data-val=")">)</button>
+          <button data-act="back">⌫</button>
+          <button data-val="7">7</button>
+          <button data-val="8">8</button>
+          <button data-val="9">9</button>
+          <button data-val="/">÷</button>
+          <button data-val="4">4</button>
+          <button data-val="5">5</button>
+          <button data-val="6">6</button>
+          <button data-val="*">×</button>
+          <button data-val="1">1</button>
+          <button data-val="2">2</button>
+          <button data-val="3">3</button>
+          <button data-val="-">−</button>
+          <button data-val="0" class="wide">0</button>
+          <button data-val=".">.</button>
+          <button data-val="+">+</button>
+          <button data-act="sqrt">√</button>
+          <button data-val="**">xʸ</button>
+          <button data-act="eq" class="success">=</button>
+        </div>
+      </div>
+      <p class="hint">Tip: Use keyboard too. Power uses <code>**</code> (e.g., 2**3).</p>
+    </section>
 
-      <button onclick="appendValue('7')">7</button>
-      <button onclick="appendValue('8')">8</button>
-      <button onclick="appendValue('9')">9</button>
-      <button onclick="appendValue('*')">×</button>
+    <!-- BMI Calculator -->
+    <section id="bmi" class="tool hidden">
+      <h2>BMI Calculator</h2>
+      <div class="card">
+        <label>Height (cm)
+          <input type="number" id="bmi-h" placeholder="e.g., 170" />
+        </label>
+        <label>Weight (kg)
+          <input type="number" id="bmi-w" placeholder="e.g., 65" />
+        </label>
+        <button id="bmi-btn">Calculate BMI</button>
+        <div id="bmi-out" class="out"></div>
+      </div>
+      <p class="hint">BMI categories: &lt;18.5 Underweight • 18.5–24.9 Normal • 25–29.9 Overweight • ≥30 Obesity</p>
+    </section>
 
-      <button onclick="appendValue('4')">4</button>
-      <button onclick="appendValue('5')">5</button>
-      <button onclick="appendValue('6')">6</button>
-      <button onclick="appendValue('-')">−</button>
+    <!-- Age Calculator -->
+    <section id="age" class="tool hidden">
+      <h2>Age Calculator</h2>
+      <div class="card">
+        <label>Date of Birth
+          <input type="date" id="age-dob" />
+        </label>
+        <button id="age-btn">Calculate Age</button>
+        <div id="age-out" class="out"></div>
+      </div>
+    </section>
 
-      <button onclick="appendValue('1')">1</button>
-      <button onclick="appendValue('2')">2</button>
-      <button onclick="appendValue('3')">3</button>
-      <button onclick="appendValue('+')">+</button>
+    <!-- Percentage / Discount Calculator -->
+    <section id="percent" class="tool hidden">
+      <h2>Percentage &amp; Discount</h2>
+      <div class="card">
+        <div class="row">
+          <label>Value</label>
+          <input type="number" id="pct-value" placeholder="e.g., 200" />
+        </div>
+        <div class="row">
+          <label>Percent (%)</label>
+          <input type="number" id="pct-percent" placeholder="e.g., 15" />
+        </div>
+        <div class="row actions">
+          <button id="pct-of">Find % of Value</button>
+          <button id="pct-inc">Increase by %</button>
+          <button id="pct-dec">Decrease by %</button>
+          <button id="pct-discount">Discount Price</button>
+        </div>
+        <div id="pct-out" class="out"></div>
+      </div>
+    </section>
 
-      <button onclick="appendValue('0')" class="zero">0</button>
-      <button onclick="appendValue('.')">.</button>
-      <button onclick="calculateResult()" class="green">=</button>
-    </div>
+    <!-- EMI Calculator -->
+    <section id="emi" class="tool hidden">
+      <h2>EMI Calculator</h2>
+      <div class="card">
+        <label>Loan Amount
+          <input type="number" id="emi-principal" placeholder="e.g., 500000" />
+        </label>
+        <label>Annual Interest Rate (%)
+          <input type="number" id="emi-rate" step="0.01" placeholder="e.g., 10.5" />
+        </label>
+        <label>Tenure (months)
+          <input type="number" id="emi-months" placeholder="e.g., 60" />
+        </label>
+        <button id="emi-btn">Calculate EMI</button>
+        <div id="emi-out" class="out"></div>
+      </div>
+      <p class="hint">Formula: EMI = P × r × (1+r)^n / ((1+r)^n − 1) where r = monthly rate, n = months</p>
+    </section>
+  </main>
 
-    <div class="extra">
-      <button onclick="appendValue('Math.sqrt(')">√</button>
-      <button onclick="appendValue('**')">xʸ</button>
-      <button onclick="appendValue('(')">(</button>
-      <button onclick="appendValue(')')">)</button>
-    </div>
+  <!-- Ad slot (bottom) -->
+  <div class="container ad-slot">
+    <!--
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-YOUR_PUB_ID"
+         data-ad-slot="BOTTOM_RESPONSIVE_SLOT"
+         data-ad-format="auto"
+         data-full-width-responsive="true"></ins>
+    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    -->
   </div>
 
-  <script src="script.js"></script>
+  <footer class="container footer">
+    <p>&copy; <span id="year"></span> SmartCalc Hub • <a href="pages/about.html">About</a> • <a href="pages/privacy.html">Privacy</a> • <a href="pages/contact.html">Contact</a></p>
+  </footer>
+
+  <script src="assets/app.js"></script>
 </body>
 </html>
